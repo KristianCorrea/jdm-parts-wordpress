@@ -22,6 +22,9 @@ function jdm_miami_body_classes( $classes ) {
 		$classes[] = 'no-sidebar';
 	}
 
+	// Mark the redesigned JDM Miami theme so CSS / JS can target it.
+	$classes[] = 'jdm-theme';
+
 	return $classes;
 }
 add_filter( 'body_class', 'jdm_miami_body_classes' );
