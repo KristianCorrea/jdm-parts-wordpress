@@ -1,0 +1,32 @@
+# Ignore local WordPress install
+/wordpress/
+
+# Keep theme code
+/theme/**/node_modules/
+/theme/**/.sass-cache/
+/theme/**/dist/
+/theme/**/.parcel-cache/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*``
+
+# Node / frontend
+node_modules/
+**/node_modules/
+
+# Env
+.env
+.env.*
+
+# Build artifacts (optional depending on your setup)
+dist/
+build/
+
+# Tailwind cache (if appears)
+.cache/
