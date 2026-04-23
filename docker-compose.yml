@@ -26,7 +26,7 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     volumes:
-      - ./wordpress:/var/www/html
+      - wp_data:/var/www/html
       - ./theme/jdm-miami-theme:/var/www/html/wp-content/themes/jdm-miami-theme
 
   wpcli:
@@ -36,7 +36,7 @@ services:
       - db
       - wordpress
     volumes:
-      - ./wordpress:/var/www/html
+      - wp_data:/var/www/html
       - ./theme/jdm-miami-theme:/var/www/html/wp-content/themes/jdm-miami-theme
     environment:
       WORDPRESS_DB_HOST: db:3306
@@ -46,3 +46,4 @@ services:
 
 volumes:
   db_data:
+  wp_data:
