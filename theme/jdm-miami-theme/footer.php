@@ -30,12 +30,13 @@
 							)
 						);
 					} elseif ( class_exists( 'WooCommerce' ) ) {
+						$shop_url = wc_get_page_permalink( 'shop' );
 						?>
 						<ul>
-							<li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'All Inventory', 'jdm_miami' ); ?></a></li>
-							<li><a href="<?php echo esc_url( get_term_link( 'engine-parts', 'product_cat' ) ); ?>"><?php esc_html_e( 'Engines & Engine Parts', 'jdm_miami' ); ?></a></li>
-							<li><a href="<?php echo esc_url( get_term_link( 'transmissions-drivetrain', 'product_cat' ) ); ?>"><?php esc_html_e( 'Transmissions & Drivetrain', 'jdm_miami' ); ?></a></li>
-							<li><a href="<?php echo esc_url( get_term_link( 'ecu-modules', 'product_cat' ) ); ?>"><?php esc_html_e( 'ECU & Modules', 'jdm_miami' ); ?></a></li>
+							<li><a href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'All Inventory', 'jdm_miami' ); ?></a></li>
+							<li><a href="<?php echo esc_url( jdm_miami_term_url( 'engine-parts', 'product_cat', $shop_url ) ); ?>"><?php esc_html_e( 'Engines & Engine Parts', 'jdm_miami' ); ?></a></li>
+							<li><a href="<?php echo esc_url( jdm_miami_term_url( 'transmissions-drivetrain', 'product_cat', $shop_url ) ); ?>"><?php esc_html_e( 'Transmissions & Drivetrain', 'jdm_miami' ); ?></a></li>
+							<li><a href="<?php echo esc_url( jdm_miami_term_url( 'ecu-modules', 'product_cat', $shop_url ) ); ?>"><?php esc_html_e( 'ECU & Modules', 'jdm_miami' ); ?></a></li>
 						</ul>
 						<?php
 					}

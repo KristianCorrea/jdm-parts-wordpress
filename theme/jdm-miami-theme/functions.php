@@ -155,6 +155,18 @@ if ( class_exists( 'WooCommerce' ) ) {
 
 /**
  * -------------------------------------------------------------
+ * Helper: safe term URL with a fallback.
+ * Returns the term archive URL for a given slug, or $fallback
+ * if the term does not exist yet (avoids WP_Error fatals).
+ * -------------------------------------------------------------
+ */
+function jdm_miami_term_url( $slug, $taxonomy, $fallback = '' ) {
+	$link = get_term_link( $slug, $taxonomy );
+	return is_wp_error( $link ) ? $fallback : $link;
+}
+
+/**
+ * -------------------------------------------------------------
  * Helper: render the brand / logo area.
  * Falls back to a stylized wordmark when no custom logo is set.
  * -------------------------------------------------------------
