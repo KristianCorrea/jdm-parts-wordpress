@@ -32,24 +32,12 @@ do_action( 'woocommerce_before_main_content' );
 		 *
 		 * @since 8.6.0
 		 * @hooked woocommerce_product_taxonomy_archive_header - 10
+		 *
+		 * This hook renders the archive title + description.
+		 * We do NOT add a separate <h1> or woocommerce_archive_description
+		 * call below — both would duplicate the output.
 		 */
 		do_action( 'woocommerce_shop_loop_header' );
-
-		if ( apply_filters( 'woocommerce_show_page_title', true ) ) :
-			?>
-			<h1 class="woocommerce-products-header__title page-title">
-				<?php woocommerce_page_title(); ?>
-			</h1>
-		<?php endif; ?>
-
-		<?php
-		/**
-		 * Hook: woocommerce_archive_description.
-		 *
-		 * @hooked woocommerce_taxonomy_archive_description - 10
-		 * @hooked woocommerce_product_archive_description - 10
-		 */
-		do_action( 'woocommerce_archive_description' );
 		?>
 	</header>
 
