@@ -79,6 +79,28 @@ $layered_attrs = array(
 			<?php echo jdm_miami_icon( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<?php esc_html_e( 'Clear all filters', 'jdm_miami' ); ?>
 		</a>
+
+		<!-- ===== Active filters chip list (moved to top) ===== -->
+		<div class="jdm-filter-group" data-jdm-filter-group>
+			<button type="button" class="jdm-filter-toggle" data-jdm-filter-toggle aria-expanded="true">
+				<span><?php esc_html_e( 'Active filters', 'jdm_miami' ); ?></span>
+				<span class="jdm-filter-chev" aria-hidden="true"></span>
+			</button>
+			<div class="jdm-filter-body" data-jdm-filter-body>
+				<?php
+				the_widget(
+					'WC_Widget_Layered_Nav_Filters',
+					array( 'title' => '' ),
+					array(
+						'before_widget' => '<div class="jdm-active-filters">',
+						'after_widget'  => '</div>',
+						'before_title'  => '',
+						'after_title'   => '',
+					)
+				);
+				?>
+			</div>
+		</div>
 	<?php endif; ?>
 
 	<!-- ===== Categories ===== -->
@@ -177,32 +199,81 @@ $layered_attrs = array(
 					'after_title'   => '',
 				)
 			);
+
+			// Custom min/max price inputs.
+			// Submits to the shop page using the same min_price / max_price
+			// query params that WooCommerce's slider already understands,
+			// while preserving any other active filter params.
+			$current_min = isset( $_GET['min_price'] ) ? floatval( wp_unslash( $_GET['min_price'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$current_max = isset( $_GET['max_price'] ) ? floatval( wp_unslash( $_GET['max_price'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			// Build the form action — use the current shop URL (or category URL) so filters compose.
+			$form_action = remove_query_arg( array( 'min_price', 'max_price', 'paged' ) );
+
+			// Preserve any active query params (filters, ordering, etc.) as hidden inputs.
+			$preserved = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			unset( $preserved['min_price'], $preserved['max_price'], $preserved['paged'] );
 			?>
+
+			<form
+				class="jdm-price-inputs"
+				method="get"
+				action="<?php echo esc_url( $form_action ); ?>"
+			>
+				<?php
+				// Recreate hidden inputs for any other active query args so we don't lose them.
+				foreach ( $preserved as $key => $value ) {
+					if ( is_array( $value ) ) {
+						foreach ( $value as $v ) {
+							printf(
+								'<input type="hidden" name="%s[]" value="%s" />',
+								esc_attr( $key ),
+								esc_attr( wp_unslash( $v ) )
+							);
+						}
+					} else {
+						printf(
+							'<input type="hidden" name="%s" value="%s" />',
+							esc_attr( $key ),
+							esc_attr( wp_unslash( $value ) )
+						);
+					}
+				}
+				?>
+				<div class="jdm-price-inputs__row">
+					<label class="jdm-price-inputs__field">
+						<span class="jdm-price-inputs__label"><?php esc_html_e( 'Min', 'jdm_miami' ); ?></span>
+						<input
+							type="number"
+							inputmode="numeric"
+							min="0"
+							step="1"
+							name="min_price"
+							placeholder="$0"
+							value="<?php echo esc_attr( '' === $current_min ? '' : (string) $current_min ); ?>"
+							class="jdm-price-inputs__input"
+						/>
+					</label>
+					<span class="jdm-price-inputs__sep" aria-hidden="true">—</span>
+					<label class="jdm-price-inputs__field">
+						<span class="jdm-price-inputs__label"><?php esc_html_e( 'Max', 'jdm_miami' ); ?></span>
+						<input
+							type="number"
+							inputmode="numeric"
+							min="0"
+							step="1"
+							name="max_price"
+							placeholder="$0"
+							value="<?php echo esc_attr( '' === $current_max ? '' : (string) $current_max ); ?>"
+							class="jdm-price-inputs__input"
+						/>
+					</label>
+				</div>
+				<button type="submit" class="jdm-price-inputs__submit">
+					<?php esc_html_e( 'Apply', 'jdm_miami' ); ?>
+				</button>
+			</form>
 		</div>
 	</div>
-
-	<!-- ===== Active filters chip list ===== -->
-	<?php if ( ! empty( $active_filters ) ) : ?>
-		<div class="jdm-filter-group" data-jdm-filter-group>
-			<button type="button" class="jdm-filter-toggle" data-jdm-filter-toggle aria-expanded="true">
-				<span><?php esc_html_e( 'Active filters', 'jdm_miami' ); ?></span>
-				<span class="jdm-filter-chev" aria-hidden="true"></span>
-			</button>
-			<div class="jdm-filter-body" data-jdm-filter-body>
-				<?php
-				the_widget(
-					'WC_Widget_Layered_Nav_Filters',
-					array( 'title' => '' ),
-					array(
-						'before_widget' => '<div class="jdm-active-filters">',
-						'after_widget'  => '</div>',
-						'before_title'  => '',
-						'after_title'   => '',
-					)
-				);
-				?>
-			</div>
-		</div>
-	<?php endif; ?>
 
 </aside>
