@@ -1968,3 +1968,164 @@ body.jdm-shop-sidebar-open .jdm-shop-sidebar-scrim {
     overflow: hidden;
   }
 }
+
+/* -----------------------------------------------------------------
+ * Shop by Make — homepage brand strip
+ * ----------------------------------------------------------------- */
+.jdm-makes-section {
+  background: linear-gradient(
+    180deg,
+    var(--color-jdm-void) 0%,
+    var(--color-jdm-ink) 100%
+  );
+}
+
+.jdm-makes-strip {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.875rem;
+  overflow-x: auto;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  /* Hide the scrollbar but keep it functional */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.jdm-makes-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.jdm-makes-card {
+  /* Show exactly 5 on desktop; the 0.875rem * 4 accounts for 4 gaps */
+  flex: 0 0 calc((100% - 4 * 0.875rem) / 5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-width: 176px; /* floor for small screens / overflow cards */
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--color-jdm-line);
+  border-radius: var(--radius-card);
+  background: var(--color-jdm-graphite);
+  text-decoration: none;
+  text-align: center;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.jdm-makes-card__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-jdm-cyan) 40%, transparent);
+  background: color-mix(in oklab, var(--color-jdm-cyan) 10%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-jdm-cyan);
+  transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+}
+
+.jdm-makes-card:hover {
+  border-color: var(--color-jdm-cyan);
+  background: color-mix(in oklab, var(--color-jdm-cyan) 6%, var(--color-jdm-graphite));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px color-mix(in oklab, var(--color-jdm-cyan) 15%, transparent);
+}
+
+.jdm-makes-card__name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-jdm-fog);
+  line-height: 1;
+  transition: color 150ms ease;
+}
+
+.jdm-makes-card:hover .jdm-makes-card__name {
+  color: var(--color-jdm-cyan);
+}
+
+.jdm-makes-card__count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-jdm-muted);
+  transition: color 150ms ease;
+}
+
+.jdm-makes-card:hover .jdm-makes-card__count {
+  color: color-mix(in oklab, var(--color-jdm-cyan) 70%, var(--color-jdm-muted));
+}
+
+.jdm-makes-scroll-indicator {
+  margin: 0.2rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-jdm-muted);
+}
+
+.jdm-makes-scroll-indicator span {
+  color: var(--color-jdm-cyan);
+}
+
+/* Right-side fade hint to reinforce horizontal scrolling */
+.jdm-makes-strip::after {
+  content: "";
+  position: sticky;
+  right: 0;
+  width: 56px;
+  flex: 0 0 56px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, var(--color-jdm-ink) 82%);
+}
+
+/* Zero-product makes get a subtler look */
+.jdm-makes-card--empty {
+  opacity: 0.55;
+}
+
+.jdm-makes-card--empty:hover {
+  opacity: 0.8;
+  border-color: var(--color-jdm-line);
+  background: var(--color-jdm-graphite);
+  transform: none;
+  box-shadow: none;
+}
+
+.jdm-makes-card--empty .jdm-makes-card__name {
+  color: var(--color-jdm-muted);
+}
+
+.jdm-makes-card--empty:hover .jdm-makes-card__name {
+  color: var(--color-jdm-soft);
+}
+
+.jdm-makes-card--empty .jdm-makes-card__logo {
+  color: var(--color-jdm-muted);
+  border-color: var(--color-jdm-line);
+  background: color-mix(in oklab, #fff 3%, transparent);
+}
+
+@media (max-width: 1199px) {
+  .jdm-makes-card {
+    flex-basis: calc((100% - 3 * 0.875rem) / 4);
+  }
+}
+
+@media (max-width: 959px) {
+  .jdm-makes-card {
+    flex-basis: calc((100% - 2 * 0.875rem) / 3);
+  }
+}
