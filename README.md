@@ -72,11 +72,15 @@ Do not compile to `style.css`. That file is reserved for the WordPress theme hea
 
 ## 5) Seed WooCommerce test data
 
-The script `seed_data.sh` creates:
+Seeding creates:
 
-- Product categories
-- Global WooCommerce attributes + terms (year, make, model, etc.)
-- Sample products
+- 14 product categories
+- 9 global WooCommerce attributes (make, model, year, engine, transmission, condition, mileage, side, OEM part number)
+- Attribute terms: 1990–2022 individual years, 8 makes, 38+ models, 24 engines
+- 16 sample products spread across all major categories
+
+The seed logic lives in `seed_data.php` (pure PHP, one WP process).
+`seed_data.sh` is the local Docker runner — it executes the PHP file in a single container boot.
 
 ### Before running seed
 
@@ -84,16 +88,32 @@ The script `seed_data.sh` creates:
 - WordPress install is complete
 - WooCommerce is active
 
-### Run seed
-
-From project root:
+### Run — Linux / macOS (local Docker)
 
 ```bash
 chmod +x seed_data.sh
 ./seed_data.sh
 ```
 
-The script is idempotent for seeded records and can be re-run safely.
+### Run — Windows (local Docker, PowerShell)
+
+```powershell
+.\seed_data.ps1
+```
+
+If PowerShell blocks the script on first run:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+### Run — remote / managed host (SSH + WP-CLI)
+
+```bash
+wp eval-file wp-content/themes/jdm-miami-theme/seed_data.php
+```
+
+The seed is idempotent — existing terms and products are skipped. Safe to re-run.
 
 ## Daily workflow
 
