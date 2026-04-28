@@ -63,10 +63,12 @@ Tailwind is part of the default workflow for this project.
 ```bash
 cd theme/jdm-miami-theme
 npm install
-npx @tailwindcss/cli -i ./src/input.css -o ./style.css --watch
+npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/tailwind.css --watch
 ```
 
-Keep the watcher running while developing so `style.css` updates automatically.
+Keep the watcher running while developing so `assets/css/tailwind.css` updates automatically.
+
+Do not compile to `style.css`. That file is reserved for the WordPress theme header.
 
 ## 5) Seed WooCommerce test data
 
@@ -96,10 +98,16 @@ The script is idempotent for seeded records and can be re-run safely.
 ## Daily workflow
 
 1. Start services: `docker compose up -d`
-2. Start Tailwind watcher in `theme/jdm-miami-theme`
-3. Edit theme files and refresh browser
+2. Start Tailwind watcher in `theme/jdm-miami-theme`:
 
-No image rebuild is needed for regular theme changes.
+   ```bash
+   npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/tailwind.css --watch
+   ```
+
+3. Edit theme files and refresh browser.
+
+No Docker image rebuild is needed for regular theme changes.
+You also usually do not need to recreate containers for normal theme edits.
 
 ## Useful commands
 

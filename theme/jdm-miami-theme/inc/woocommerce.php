@@ -43,23 +43,28 @@ add_action( 'after_setup_theme', 'jdm_miami_woocommerce_setup' );
  * @return void
  */
 function jdm_miami_woocommerce_scripts() {
-	wp_enqueue_style( 'jdm_miami-woocommerce-style', get_template_directory_uri() . '/woocommerce.css', array(), _S_VERSION );
+	// The stock Underscores woocommerce.css stylesheet is intentionally NOT
+	// enqueued. All WooCommerce visuals are unified in the compiled Tailwind
+	// stylesheet (assets/css/tailwind.css) to stay on-brand.
 
-	$font_path   = WC()->plugin_url() . '/assets/fonts/';
-	$inline_font = '@font-face {
-			font-family: "star";
-			src: url("' . $font_path . 'star.eot");
-			src: url("' . $font_path . 'star.eot?#iefix") format("embedded-opentype"),
-				url("' . $font_path . 'star.woff") format("woff"),
-				url("' . $font_path . 'star.ttf") format("truetype"),
-				url("' . $font_path . 'star.svg#star") format("svg");
-			font-weight: normal;
-			font-style: normal;
-		}';
+	// Keep the WooCommerce star-rating font so ratings still render.
+	if ( function_exists( 'WC' ) && WC() ) {
+		$font_path   = WC()->plugin_url() . '/assets/fonts/';
+		$inline_font = '@font-face {
+				font-family: "star";
+				src: url("' . $font_path . 'star.eot");
+				src: url("' . $font_path . 'star.eot?#iefix") format("embedded-opentype"),
+					url("' . $font_path . 'star.woff") format("woff"),
+					url("' . $font_path . 'star.ttf") format("truetype"),
+					url("' . $font_path . 'star.svg#star") format("svg");
+				font-weight: normal;
+				font-style: normal;
+			}';
 
-	wp_add_inline_style( 'jdm_miami-woocommerce-style', $inline_font );
+		wp_add_inline_style( 'jdm_miami-tailwind', $inline_font );
+	}
 }
-add_action( 'wp_enqueue_scripts', 'jdm_miami_woocommerce_scripts' );
+add_action( 'wp_enqueue_scripts', 'jdm_miami_woocommerce_scripts', 20 );
 
 /**
  * Disable the default WooCommerce stylesheet.
@@ -119,6 +124,7 @@ if ( ! function_exists( 'jdm_miami_woocommerce_wrapper_before' ) ) {
 	function jdm_miami_woocommerce_wrapper_before() {
 		?>
 			<main id="primary" class="site-main">
+				<div class="jdm-container">
 		<?php
 	}
 }
@@ -134,6 +140,7 @@ if ( ! function_exists( 'jdm_miami_woocommerce_wrapper_after' ) ) {
 	 */
 	function jdm_miami_woocommerce_wrapper_after() {
 		?>
+				</div>
 			</main><!-- #main -->
 		<?php
 	}
