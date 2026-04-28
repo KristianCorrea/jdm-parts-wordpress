@@ -16,6 +16,7 @@ get_header();
 	<?php
 	get_template_part( 'template-parts/hero' );
 	get_template_part( 'template-parts/featured-categories' );
+	get_template_part( 'template-parts/featured-makes' );
 	get_template_part( 'template-parts/featured-products' );
 	get_template_part( 'template-parts/why-choose' );
 	get_template_part( 'template-parts/cta-band' );

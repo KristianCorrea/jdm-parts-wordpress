@@ -4,6 +4,23 @@
  *
  * @package JDM_Miami
  */
+
+$total_products = 0;
+
+if ( class_exists( 'WooCommerce' ) ) {
+	global $wpdb;
+
+	$total_products = (int) $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT COUNT(p.ID)
+			FROM {$wpdb->posts} p
+			WHERE p.post_type = %s
+			AND p.post_status = %s",
+			'product',
+			'publish'
+		)
+	);
+}
 ?>
 
 <section class="jdm-hero">
@@ -33,7 +50,7 @@
 
 				<div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0.75rem; margin-top: 2.5rem; max-width: 540px;">
 					<div class="jdm-hero-stat">
-						<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">500+</div>
+						<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;"><?php echo esc_html( number_format_i18n( $total_products ) ); ?></div>
 						<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'SKUs in stock', 'jdm_miami' ); ?></div>
 					</div>
 					<div class="jdm-hero-stat">
