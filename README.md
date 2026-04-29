@@ -41,13 +41,14 @@ App URLs:
 
 On first run, complete the WordPress install wizard.
 
-## 2) Install and activate WooCommerce
+## 2) Install and activate plugins
 
-In WP Admin:
+In WP Admin, go to **Plugins > Add New** and install:
 
-1. Go to **Plugins**
-2. Install and activate **WooCommerce**
-3. Complete WooCommerce setup wizard
+1. **WooCommerce** — Install and activate, then complete the WooCommerce setup wizard.
+2. **Advanced Woo Search** — By [ILLID](https://wordpress.org/plugins/advanced-woo-search/). Install and activate.
+
+You will return to Advanced Woo Search after seeding data (see §5) to run a full reindex.
 
 ## 3) Activate the custom theme
 
@@ -114,6 +115,13 @@ wp eval-file wp-content/themes/jdm-miami-theme/seed_data.php
 ```
 
 The seed is idempotent — existing terms and products are skipped. Safe to re-run.
+
+### After seed: reindex Advanced Woo Search
+
+Advanced Woo Search keeps its own index. After seeding (or re-seeding):
+
+1. Go to **Advanced Woo Search** in the admin menu (plugin settings).
+2. Click **Reindex** so search results include the seeded products.
 
 ## Daily workflow
 

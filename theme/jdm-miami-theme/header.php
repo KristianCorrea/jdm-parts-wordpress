@@ -54,9 +54,15 @@
 
 				<div class="jdm-header-actions">
 					<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-						<a class="jdm-icon-btn" href="<?php echo esc_url( get_search_link() ? home_url( '/?s=' ) : home_url( '/?s=' ) ); ?>" aria-label="<?php esc_attr_e( 'Search', 'jdm_miami' ); ?>">
-							<?php echo jdm_miami_icon( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-						</a>
+						<div class="jdm-header-search" aria-label="<?php esc_attr_e( 'Search products', 'jdm_miami' ); ?>">
+							<?php
+							if ( function_exists( 'aws_get_search_form' ) ) {
+								aws_get_search_form( true );
+							} else {
+								get_search_form();
+							}
+							?>
+						</div>
 
 						<a class="jdm-icon-btn" href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" aria-label="<?php esc_attr_e( 'My Account', 'jdm_miami' ); ?>">
 							<?php echo jdm_miami_icon( 'user' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
