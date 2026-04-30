@@ -81,13 +81,22 @@ Seeding creates:
 - 16 sample products spread across all major categories
 
 The seed logic lives in `seed_data.php` (pure PHP, one WP process).
-`seed_data.sh` is the local Docker runner — it executes the PHP file in a single container boot.
+Runner files:
+
+- `seed_data.sh` — Linux/macOS local Docker runner
+- `seed_data.ps1` — Windows PowerShell local Docker runner
+- `run-seed.php` — browser-based fallback runner for shared hosting / managed hosting
+
+> `run-seed.php` is useful for development and shared hosting where SSH or WP-CLI may not be available.
+> It should **not** remain on production after the site is seeded.
 
 ### Before running seed
 
-- Containers are up (`docker compose up -d`)
+- Containers are up, if running locally (`docker compose up -d`)
 - WordPress install is complete
-- WooCommerce is active
+- WooCommerce is installed and active
+- The custom theme is uploaded/active
+- `seed_data.php` exists in the active theme folder
 
 ### Run — Linux / macOS (local Docker)
 
