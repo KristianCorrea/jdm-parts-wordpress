@@ -45,7 +45,7 @@
 						if ( class_exists( 'WooCommerce' ) ) {
 							echo '<li><a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Shop</a></li>';
 						}
-						echo '<li><a href="' . esc_url( home_url( '/about/' ) ) . '">About</a></li>';
+						echo '<li><a href="' . esc_url( jdm_miami_about_page_url() ) . '">About</a></li>';
 						echo '<li><a href="' . esc_url( home_url( '/contact/' ) ) . '">Contact</a></li>';
 						echo '</ul>';
 					}
