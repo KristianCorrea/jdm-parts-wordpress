@@ -57,7 +57,7 @@
 					} else {
 						?>
 						<ul>
-							<li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'About', 'jdm_miami' ); ?></a></li>
+							<li><a href="<?php echo esc_url( jdm_miami_about_page_url() ); ?>"><?php esc_html_e( 'About', 'jdm_miami' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Contact', 'jdm_miami' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/shipping/' ) ); ?>"><?php esc_html_e( 'Shipping & Returns', 'jdm_miami' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/warranty/' ) ); ?>"><?php esc_html_e( 'Warranty', 'jdm_miami' ); ?></a></li>

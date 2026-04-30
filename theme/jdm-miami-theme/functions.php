@@ -139,6 +139,7 @@ require get_template_directory() . '/inc/template-functions.php';
  */
 require get_template_directory() . '/inc/customizer.php';
 
+
 /**
  * Jetpack compatibility (optional).
  */
@@ -163,6 +164,97 @@ if ( class_exists( 'WooCommerce' ) ) {
 function jdm_miami_term_url( $slug, $taxonomy, $fallback = '' ) {
 	$link = get_term_link( $slug, $taxonomy );
 	return is_wp_error( $link ) ? $fallback : $link;
+}
+
+/**
+ * User ID for auto-created theme pages (first administrator, else 1).
+ *
+ * @return int
+ */
+function jdm_miami_default_page_author_id() {
+	static $id = null;
+	if ( null !== $id ) {
+		return $id;
+	}
+	$admins = get_users(
+		array(
+			'role'   => 'administrator',
+			'number' => 1,
+			'fields' => 'ID',
+		)
+	);
+	$id = ! empty( $admins[0] ) ? (int) $admins[0] : 1;
+	return $id;
+}
+
+/**
+ * Create the About page if missing so /about/ and header/footer links do not 404.
+ */
+function jdm_miami_ensure_about_page() {
+	static $ran = false;
+	if ( $ran ) {
+		return;
+	}
+	$ran = true;
+
+	if ( ! is_blog_installed() ) {
+		return;
+	}
+
+	$cached_id = (int) get_option( 'jdm_miami_about_page_id', 0 );
+	if ( $cached_id && 'publish' === get_post_status( $cached_id ) && 'page' === get_post_type( $cached_id ) ) {
+		return;
+	}
+
+	$by_path = get_page_by_path( 'about', OBJECT, 'page' );
+	if ( $by_path ) {
+		if ( 'trash' === $by_path->post_status ) {
+			wp_untrash_post( $by_path->ID );
+		}
+		if ( 'publish' !== get_post_status( $by_path->ID ) ) {
+			wp_update_post(
+				array(
+					'ID'          => $by_path->ID,
+					'post_status' => 'publish',
+				)
+			);
+		}
+		update_option( 'jdm_miami_about_page_id', $by_path->ID );
+		return;
+	}
+
+	$new_id = wp_insert_post(
+		array(
+			'post_title'   => __( 'About', 'jdm_miami' ),
+			'post_name'    => 'about',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'post_content' => '',
+			'post_author'  => jdm_miami_default_page_author_id(),
+		),
+		true
+	);
+
+	if ( is_wp_error( $new_id ) || ! $new_id ) {
+		return;
+	}
+
+	update_option( 'jdm_miami_about_page_id', (int) $new_id );
+	flush_rewrite_rules( false );
+}
+add_action( 'init', 'jdm_miami_ensure_about_page', 5 );
+
+/**
+ * Permalink for the About page (WordPress loads `page-about.php` for slug `about`).
+ *
+ * @return string Canonical About URL, or `/about/` if the Page has not been created yet.
+ */
+function jdm_miami_about_page_url() {
+	$page = get_page_by_path( 'about', OBJECT, 'page' );
+	if ( $page && 'publish' === $page->post_status ) {
+		return get_permalink( $page );
+	}
+	return home_url( '/about/' );
 }
 
 /**
