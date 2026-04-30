@@ -258,6 +258,24 @@ function jdm_miami_about_page_url() {
 }
 
 /**
+ * Render fallback primary navigation links when no WP menu is assigned.
+ *
+ * Keeps desktop and mobile fallback navigation in sync.
+ */
+function jdm_miami_fallback_primary_menu() {
+	?>
+	<ul>
+		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'jdm_miami' ); ?></a></li>
+		<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php esc_html_e( 'Shop', 'jdm_miami' ); ?></a></li>
+		<?php endif; ?>
+		<li><a href="<?php echo esc_url( jdm_miami_about_page_url() ); ?>"><?php esc_html_e( 'About', 'jdm_miami' ); ?></a></li>
+		<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Contact', 'jdm_miami' ); ?></a></li>
+	</ul>
+	<?php
+}
+
+/**
  * -------------------------------------------------------------
  * Helper: render the brand / logo area.
  * Falls back to a stylized wordmark when no custom logo is set.
