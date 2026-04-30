@@ -2129,3 +2129,210 @@ body.jdm-shop-sidebar-open .jdm-shop-sidebar-scrim {
     flex-basis: calc((100% - 2 * 0.875rem) / 3);
   }
 }
+
+/* -----------------------------------------------------------------
+ * Contact page — two-column layout
+ * ----------------------------------------------------------------- */
+.jdm-contact-section {
+  padding-top: 3.5rem;
+  padding-bottom: 5rem;
+}
+
+.jdm-contact-heading {
+  margin-bottom: 3rem;
+}
+
+/* Two-column grid: info | form */
+.jdm-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .jdm-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+/* ── Info column ── */
+.jdm-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.jdm-contact-detail {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.jdm-contact-detail__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in oklab, var(--color-jdm-cyan) 35%, transparent);
+  background: color-mix(in oklab, var(--color-jdm-cyan) 8%, transparent);
+  color: var(--color-jdm-cyan);
+  margin-top: 0.1rem;
+}
+
+.jdm-contact-detail__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-jdm-muted);
+  margin: 0 0 0.25rem;
+}
+
+.jdm-contact-detail__value {
+  font-size: 0.98rem;
+  color: var(--color-jdm-fog);
+  text-decoration: none;
+  font-style: normal;
+  transition: color 150ms ease;
+}
+
+a.jdm-contact-detail__value:hover {
+  color: var(--color-jdm-cyan);
+}
+
+.jdm-contact-address {
+  line-height: 1.55;
+}
+
+/* Hours table-style list */
+.jdm-contact-hours {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.jdm-contact-hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--color-jdm-soft);
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--color-jdm-line);
+}
+
+.jdm-contact-hours li:last-child {
+  border-bottom: none;
+}
+
+/* Google Maps embed */
+.jdm-contact-map {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid var(--color-jdm-line);
+  margin-top: 0.5rem;
+}
+
+.jdm-contact-map iframe {
+  display: block;
+  width: 100%;
+}
+
+/* ── Form column ── */
+.jdm-contact-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.jdm-contact-form-intro {
+  font-size: 0.95rem;
+  color: var(--color-jdm-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.jdm-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.jdm-contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.jdm-contact-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-jdm-soft);
+}
+
+.jdm-contact-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--color-jdm-graphite);
+  border: 1px solid var(--color-jdm-line);
+  border-radius: 10px;
+  color: var(--color-jdm-fog);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  appearance: none;
+}
+
+.jdm-contact-input::placeholder {
+  color: var(--color-jdm-muted);
+}
+
+.jdm-contact-input:focus {
+  outline: none;
+  border-color: var(--color-jdm-cyan);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-jdm-cyan) 20%, transparent);
+}
+
+.jdm-contact-textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.jdm-contact-submit {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jdm-contact-success {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid color-mix(in oklab, #22c55e 40%, transparent);
+  border-radius: 10px;
+  background: color-mix(in oklab, #22c55e 8%, transparent);
+  color: #4ade80;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.jdm-contact-error {
+  padding: 0.9rem 1.1rem;
+  border: 1px solid color-mix(in oklab, var(--color-jdm-magenta) 40%, transparent);
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--color-jdm-magenta) 8%, transparent);
+  color: var(--color-jdm-magenta);
+  font-size: 0.9rem;
+}
