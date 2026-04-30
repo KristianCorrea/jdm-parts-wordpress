@@ -28,26 +28,7 @@ if ( ! $shop_url ) {
 				<span style="pointer-events: none; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, color-mix(in oklab, var(--color-jdm-black) 80%, transparent) 100%);"></span>
 			</figure>
 
-			<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; margin-top: 1.25rem;">
-				<div class="jdm-hero-stat">
-					<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">500+</div>
-					<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'Parts available', 'jdm_miami' ); ?></div>
-				</div>
-				<div class="jdm-hero-stat">
-					<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">10+</div>
-					<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'Years experience', 'jdm_miami' ); ?></div>
-				</div>
-				<div class="jdm-hero-stat">
-					<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">48h</div>
-					<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'Fast shipping', 'jdm_miami' ); ?></div>
-				</div>
-				<div class="jdm-hero-stat">
-					<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">100%</div>
-					<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'Inspected parts', 'jdm_miami' ); ?></div>
-				</div>
-			</div>
-
-			<div style="margin-top: 2rem; padding: 1.4rem; border-radius: 16px; border: 1px solid var(--color-jdm-line); background: linear-gradient(180deg, var(--color-jdm-ink) 0%, var(--color-jdm-graphite) 100%);">
+			<div style="margin-top: 2rem;">
 				<span class="jdm-eyebrow"><?php esc_html_e( 'Who We Are', 'jdm_miami' ); ?></span>
 				<h2 class="jdm-heading-lg" style="margin-top: 1rem;">
 					<?php esc_html_e( 'Built Around Passion.', 'jdm_miami' ); ?>
