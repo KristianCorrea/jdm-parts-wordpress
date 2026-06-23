@@ -4,6 +4,39 @@
  *
  * @package JDM_Miami
  */
+
+$total_products = 0;
+$total_makes = 0;
+
+if ( class_exists( 'WooCommerce' ) ) {
+	global $wpdb;
+
+	$total_products = (int) $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT COUNT(p.ID)
+			FROM {$wpdb->posts} p
+			WHERE p.post_type = %s
+			AND p.post_status = %s",
+			'product',
+			'publish'
+		)
+	);
+}
+
+if ( class_exists( 'WooCommerce' ) ) {
+	global $wpdb;
+
+	$total_makes = (int) $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT COUNT(DISTINCT p.makes)
+			FROM {$wpdb->posts} p
+			WHERE p.post_type = %s
+			AND p.post_status = %s",
+			'product',
+			
+		)
+	);
+}
 ?>
 
 <section class="jdm-hero">
@@ -33,16 +66,16 @@
 
 				<div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0.75rem; margin-top: 2.5rem; max-width: 540px;">
 					<div class="jdm-hero-stat">
-						<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">500+</div>
+						<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;"><?php echo esc_html( number_format_i18n( $total_products ) ); ?></div>
 						<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'SKUs in stock', 'jdm_miami' ); ?></div>
 					</div>
 					<div class="jdm-hero-stat">
-						<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">12</div>
+						<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;"><?php echo esc_html( number_format_i18n( $total_makes ) ); ?></div>
 						<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'Categories', 'jdm_miami' ); ?></div>
 					</div>
 					<div class="jdm-hero-stat">
 						<div style="font-family: var(--font-display); color: #fff; font-size: 1.75rem;">48h</div>
-						<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'Avg. dispatch', 'jdm_miami' ); ?></div>
+						<div style="color: var(--color-jdm-muted); font-size: 0.8rem;"><?php esc_html_e( 'Ships in', 'jdm_miami' ); ?></div>
 					</div>
 				</div>
 			</div>
